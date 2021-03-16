@@ -1,6 +1,16 @@
 #
-# from:
-# exercise 1
+#   from:
+#   -------
+#   exercise 1
+#
+#   reason for approach:
+#   ------------------------
+#   Defining ** repr**() and **str**() is often
+#   good practice, as it can simplify debugging
+#   and instance output. For example, by merely
+#   printing or logging an instance, a programmer
+#   will be shown more useful information about
+#   the instance contents.
 #
 
 class Pair(object):
