@@ -21,6 +21,7 @@ the **str**() and **repr**() methods.
 For example:
 
 ```
+# definition
 
 class Pair(object):
     def __init__(self, x, y):
@@ -42,7 +43,7 @@ and is the output produced by the str() and print() functions.
 For example:
 
 ```
-# usage
+# application
 
 $ p = Pair(3, 4)
 $ p
@@ -57,6 +58,7 @@ should be used instead of **str**(), the default. You can try
 this experiment with the preceding class to see this:
 
 ```
+# application
 
 $ p = Pair(3, 4)
 $ print('p is {0!r}'.format(p))
@@ -95,6 +97,7 @@ format code {0.x} specifies the x-attribute of argument 0. So, in
 the following function, the 0 is actually the instance self:
 
 ```
+# definition
 
 def **repr**(self):
 return 'Pair({0.x!r}, {0.y!r})'.format(self)
@@ -105,6 +108,7 @@ As an alternative to this implementation, you could also use the
 % operator and the following code:
 
 ```
+# definition
 
 def **repr**(self):
 return 'Pair(%r, %r)' % (self.x, self.y)

@@ -21,6 +21,7 @@ To customize string formatting, define the
 For example:
 
 ```
+# definition
 
 _formats = {
     'ymd' : '{d.year}-{d.month}-{d.day}',
@@ -45,6 +46,7 @@ Instances of the Date class now support formatting
 operations such as the following:
 
 ```
+# application
 
 $ d = Date(2012, 12, 21)
 $ format(d)
@@ -65,6 +67,7 @@ class itself. Thus, the codes can be almost anything at all.
 For example, consider the following from the datetime module:
 
 ```
+# application
 
 from datetime import date
 d = date(2012, 12, 21)
