@@ -15,7 +15,6 @@ instances to something more sensible.
 
 To change the string representation of an instance, define
 the **str**() and **repr**() methods.
-
 <hr >
 
 For example:
