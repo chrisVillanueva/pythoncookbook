@@ -15,6 +15,7 @@ instances to something more sensible.
 
 To change the string representation of an instance, define
 the **str**() and **repr**() methods.
+
 <hr >
 
 For example:
@@ -32,15 +33,16 @@ class Pair(object):
 
 ```
 
-The **repr**() method returns the code representation of
+The **repr**() method returns the _code representation_ of
 an instance, and is usually the text you would type to re-create
 the instance. The built-in repr() function returns this text,
 as does the interactive interpreter when inspecting values.
-The **str**() method converts the instance to a string,
+The **str**() method converts the instance _to a string_,
 and is the output produced by the str() and print() functions.
 For example:
 
 ```
+# usage
 
 $ p = Pair(3, 4)
 $ p
@@ -50,7 +52,7 @@ $ print(p)
 
 The implementation of this recipe also shows how different string
 representations may be used during formatting. Specifically, the
-special !r formatting code indicates that the output of **repr**()
+_special !r formatting code_ indicates that the output of **repr**()
 should be used instead of **str**(), the default. You can try
 this experiment with the preceding class to see this:
 
