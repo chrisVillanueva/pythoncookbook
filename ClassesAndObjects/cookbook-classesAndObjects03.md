@@ -8,14 +8,14 @@
 
 You are writing a lot of classes that serve as data
 structures, but you are getting tired of writing
-highly repetitive and boilerplate **init**() functions.
+highly repetitive and boilerplate \_\_init\_\_() functions.
 
 ## Solution
 
 ---
 
 You can often generalize the initialization of data
-structures into a single **init**() function
+structures into a single \_\_init\_\_() function
 defined in a common base class.
 
 <hr >
@@ -162,10 +162,10 @@ s2 = Stock('ACME', 50, 91.1, date='8/2/2012')
 
 ---
 
-This technique of defining a general purpose **init**() method can
+This technique of defining a general purpose \_\_init\_\_() method can
 be extremely useful if you’re ever writing a program built around
 a large number of small data structures. It leads to much less
-code than manually writing **init**() methods like this:
+code than manually writing \_\_init\_\_() methods like this:
 
 ```
 
@@ -236,7 +236,7 @@ help(Stock)
 ```
 
 Many of these problems can be fixed by either attaching or
-enforcing a type signature in the **init**() function.
+enforcing a type signature in the \_\_init\_\_() function.
 
 It should be noted that it is also possible to automatically
 initialize instance variables using a utility function and a
@@ -264,7 +264,7 @@ class Stock(object):
 
 In this variation, the init_fromlocals() function uses
 sys.\_getframe() to peek at the local variables of the
-calling method. If used as the first step of an **init**()
+calling method. If used as the first step of an \_\_init\_\_()
 method, the local variables will be the same as the
 passed arguments and can be easily used to set attributes
 with the same names. Although this approach avoids the
