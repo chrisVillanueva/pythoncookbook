@@ -29,7 +29,7 @@ For example:
 class Structure(object): # Class variable that specifies expected fields
     _fields= []
 
-    def **init**(self, *args):
+    def __init__(self, *args):
         if len(args) != len(self._fields):
             raise TypeError('Expected {} arguments'.format(len(self._fields)))
 
@@ -40,7 +40,7 @@ class Structure(object): # Class variable that specifies expected fields
 
 # class use-case definitions
 
-if **name** == '**main**':
+if __name__ == '__main__':
     class Stock(Structure):
         _fields = ['name', 'shares', 'price']
 
@@ -84,7 +84,7 @@ in "\_fields". For example:
 class Structure(object):
     _fields= []
 
-    def **init**(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if len(args) > len(self._fields):
             raise TypeError('Expected {} arguments'.format(len(self._fields)))
 
@@ -104,7 +104,7 @@ class Structure(object):
 
 # application
 
-if **name** == '**main**':
+if __name__ == '__main__':
     class Stock(Structure):
         _fields = ['name', 'shares', 'price']
 
@@ -129,7 +129,7 @@ class Structure(object):
     # Class variable that specifies expected fields
     _fields= []
 
-    def **init**(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if len(args) != len(self._fields):
             raise TypeError('Expected {} arguments'.format(len(self._fields)))
 
@@ -148,7 +148,7 @@ class Structure(object):
 
 # application
 
-if **name** == '**main**':
+if __name__ == '__main__':
     class Stock(Structure):
         _fields = ['name', 'shares', 'price']
 
@@ -172,18 +172,18 @@ code than manually writing **init**() methods like this:
 # application
 
 class Stock(object):
-    def **init**(self, name, shares, price):
+    def __init__(self, name, shares, price):
         self.name = name
         self.shares = shares
         self.price = price
 
 class Point(object):
-    def **init**(self, x, y):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
 
 class Circle(object):
-    def **init**(self, radius):
+    def __init__(self, radius):
         self.radius = radius
 
     def area(self):
@@ -204,12 +204,12 @@ class Structure(object):
     # Class variable that specifies expected fields
     _fields= []
 
-    def **init**(self, *args):
+    def __init__(self, *args):
         if len(args) != len(self._fields):
             raise TypeError('Expected {} arguments'.format(len(self._fields)))
 
         # Set the arguments (alternate)
-        self.**dict**.update(zip(self._fields,args))
+        self.__dict__.update(zip(self._fields,args))
 
 ```
 
@@ -256,7 +256,7 @@ def init_fromlocals(self):
             setattr(self, k, v)
 
 class Stock(object):
-    def **init**(self, name, shares, price):
+    def __init__(self, name, shares, price):
         init_fromlocals(self)
 
 
