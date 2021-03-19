@@ -14,7 +14,7 @@ the format() function and string method.
 ---
 
 To customize string formatting, define the
-**format**() method on a class.
+\_\_format\_\_() method on a class.
 
 <hr >
 
@@ -60,7 +60,7 @@ $ 'The date is {:mdy}'.format(d)
 
 ---
 
-The **format**() method provides a hook into Python’s string
+The \_\_format\_\_() method provides a hook into Python’s string
 formatting functionality. It’s important to emphasize that
 the interpretation of format codes is entirely up to the
 class itself. Thus, the codes can be almost anything at all.
