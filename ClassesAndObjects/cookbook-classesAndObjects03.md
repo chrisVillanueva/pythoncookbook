@@ -23,26 +23,35 @@ defined in a common base class.
 For example:
 
 ```
+
+# definition
+
 class Structure(object): # Class variable that specifies expected fields
     _fields= []
-    def **init**(self, *args):
-    if len(args) != len(self._fields):
-        raise TypeError('Expected {} arguments'.format(len(self._fields)))
-    # Set the arguments
-    for name, value in zip(self._fields, args):
-    setattr(self, name, value)
 
-# Example class definitions
+    def **init**(self, *args):
+        if len(args) != len(self._fields):
+            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+
+        # Set the arguments
+        for name, value in zip(self._fields, args):
+            setattr(self, name, value)
+
+
+# class use-case definitions
 
 if **name** == '**main**':
     class Stock(Structure):
         _fields = ['name', 'shares', 'price']
+
     class Point(Structure):
         _fields = ['x','y']
+
     class Circle(Structure):
         _fields = ['radius']
+
     def area(self):
-    return math.pi * self.radius ** 2
+        return math.pi * self.radius ** 2
 
 ```
 
@@ -52,6 +61,9 @@ they are easy to construct.
 For example:
 
 ```
+
+# application
+
 $ s = Stock('ACME', 50, 91.1)
 $ p = Point(2, 3)
 $ c = Circle(4.5)
@@ -67,26 +79,34 @@ in "\_fields". For example:
 
 ```
 
+# definition
+
 class Structure(object):
     _fields= []
-    def **init**(self, *args, **kwargs):
-    if len(args) > len(self._fields):
-        raise TypeError('Expected {} arguments'.format(len(self._fields)))
-    # Set all of the positional arguments
-    for name, value in zip(self._fields, args):
-        setattr(self, name, value)
-    # Set the remaining keyword arguments
-    for name in self._fields[len(args):]:
-        setattr(self, name, kwargs.pop(name))
-    # Check for any remaining unknown arguments
-    if kwargs:
-        raise TypeError('Invalid argument(s): {}'.format(','.join(kwargs)))
 
-# Example use
+    def **init**(self, *args, **kwargs):
+        if len(args) > len(self._fields):
+            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+
+        # Set all of the positional arguments
+        for name, value in zip(self._fields, args):
+            setattr(self, name, value)
+
+        # Set the remaining keyword arguments
+        for name in self._fields[len(args):]:
+            setattr(self, name, kwargs.pop(name))
+
+        # Check for any remaining unknown arguments
+        if kwargs:
+            raise TypeError('Invalid argument(s): {}'.format(','.join(kwargs)))
+
+
+
+# application
 
 if **name** == '**main**':
-class Stock(Structure):
-_fields = ['name', 'shares', 'price']
+    class Stock(Structure):
+        _fields = ['name', 'shares', 'price']
 
 s1 = Stock('ACME', 50, 91.1)
 s2 = Stock('ACME', 50, price=91.1)
@@ -103,30 +123,38 @@ For example:
 
 ```
 
+# definition
+
 class Structure(object):
     # Class variable that specifies expected fields
     _fields= []
-    def **init**(self, *args, **kwargs):
-    if len(args) != len(self._fields):
-        raise TypeError('Expected {} arguments'.format(len(self._fields)))
-    # Set the arguments
-    for name, value in zip(self._fields, args):
-        setattr(self, name, value)
-    # Set the additional arguments (if any)
-    extra_args = kwargs.keys() - self._fields
-    for name in extra_args:
-        setattr(self, name, kwargs.pop(name))
-    if kwargs:
-        raise TypeError('Duplicate values for {}'.format(','.join(kwargs)))
 
-# Example use
+    def **init**(self, *args, **kwargs):
+        if len(args) != len(self._fields):
+            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+
+        # Set the arguments
+        for name, value in zip(self._fields, args):
+            setattr(self, name, value)
+
+        # Set the additional arguments (if any)
+        extra_args = kwargs.keys() - self._fields
+        for name in extra_args:
+            setattr(self, name, kwargs.pop(name))
+
+        if kwargs:
+            raise TypeError('Duplicate values for {}'.format(','.join(kwargs)))
+
+
+# application
 
 if **name** == '**main**':
-class Stock(Structure):
-    _fields = ['name', 'shares', 'price']
+    class Stock(Structure):
+        _fields = ['name', 'shares', 'price']
 
 s1 = Stock('ACME', 50, 91.1)
 s2 = Stock('ACME', 50, 91.1, date='8/2/2012')
+
 
 ```
 
@@ -141,22 +169,25 @@ code than manually writing **init**() methods like this:
 
 ```
 
+# application
+
 class Stock(object):
     def **init**(self, name, shares, price):
-    self.name = name
-    self.shares = shares
-    self.price = price
+        self.name = name
+        self.shares = shares
+        self.price = price
 
 class Point(object):
     def **init**(self, x, y):
-    self.x = x
-    self.y = y
+        self.x = x
+        self.y = y
 
 class Circle(object):
     def **init**(self, radius):
-    self.radius = radius
+        self.radius = radius
+
     def area(self):
-    return math.pi * self.radius ** 2
+        return math.pi * self.radius ** 2
 
 ```
 
@@ -167,14 +198,18 @@ instance dictionary. For example:
 
 ```
 
+# definition
+
 class Structure(object):
     # Class variable that specifies expected fields
     _fields= []
+
     def **init**(self, *args):
-    if len(args) != len(self._fields):
-    raise TypeError('Expected {} arguments'.format(len(self._fields)))
-    # Set the arguments (alternate)
-    self.**dict**.update(zip(self._fields,args))
+        if len(args) != len(self._fields):
+            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+
+        # Set the arguments (alternate)
+        self.**dict**.update(zip(self._fields,args))
 
 ```
 
@@ -194,6 +229,7 @@ described in the usual way.
 For example:
 
 ```
+# application'
 
 help(Stock)
 
@@ -210,6 +246,8 @@ For example:
 
 ```
 
+# application
+
 def init_fromlocals(self):
     import sys
     locs = sys._getframe(1).f_locals
@@ -219,7 +257,8 @@ def init_fromlocals(self):
 
 class Stock(object):
     def **init**(self, name, shares, price):
-    init_fromlocals(self)
+        init_fromlocals(self)
+
 
 ```
 
@@ -235,7 +274,3 @@ in the recipe, requires more typing, and involves more
 sophisticated magic behind the scenes. If your code doesn’t
 need this extra power, often times the simpler solution
 will work just fine.
-
-```
-
-```
