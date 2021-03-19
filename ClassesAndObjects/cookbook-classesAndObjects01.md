@@ -14,7 +14,7 @@ instances to something more sensible.
 ---
 
 To change the string representation of an instance, define
-the **str**() and **repr**() methods.
+the \_\_str\_\_() and \_\_repr\_\_() methods.
 
 <hr >
 
@@ -34,11 +34,11 @@ class Pair(object):
 
 ```
 
-The **repr**() method returns the _code representation_ of
+The \__repr\_\_() method returns the \_code representation_ of
 an instance, and is usually the text you would type to re-create
 the instance. The built-in repr() function returns this text,
 as does the interactive interpreter when inspecting values.
-The **str**() method converts the instance _to a string_,
+The \__str\_\_() method converts the instance \_to a string_,
 and is the output produced by the str() and print() functions.
 For example:
 
@@ -53,8 +53,8 @@ $ print(p)
 
 The implementation of this recipe also shows how different string
 representations may be used during formatting. Specifically, the
-_special !r formatting code_ indicates that the output of **repr**()
-should be used instead of **str**(), the default. You can try
+_special !r formatting code_ indicates that the output of \_\_repr\_\_()
+should be used instead of \_\_str\_\_(), the default. You can try
 this experiment with the preceding class to see this:
 
 ```
@@ -70,12 +70,12 @@ $ print('p is {0}'.format(p))
 
 ---
 
-Defining **repr**() and **str**() is often good practice, as it can
+Defining \_\_repr\_\_() and \_\_str\_\_() is often good practice, as it can
 simplify debugging and instance output. For example, by merely
 printing or logging an instance, a programmer will be shown more
 useful information about the instance contents.
 
-It is standard practice for the output of **repr**() to produce
+It is standard practice for the output of \_\_repr\_\_() to produce
 text such that eval(repr(x)) == x. If this is not possible or
 desired, then it is common to create a useful textual representation
 enclosed in < and > instead. For example:
@@ -89,7 +89,7 @@ enclosed in < and > instead. For example:
 
 ```
 
-If no **str**() is defined, the output of **repr**()
+If no \_\_str\_\_() is defined, the output of \_\_repr\_\_()
 is used as a fallback.
 
 The use of format() in the solution might look a little funny, but the
@@ -99,8 +99,8 @@ the following function, the 0 is actually the instance self:
 ```
 # definition
 
-def **repr**(self):
-return 'Pair({0.x!r}, {0.y!r})'.format(self)
+def __repr__(self):
+    return 'Pair({0.x!r}, {0.y!r})'.format(self)
 
 ```
 
@@ -110,7 +110,7 @@ As an alternative to this implementation, you could also use the
 ```
 # definition
 
-def **repr**(self):
-return 'Pair(%r, %r)' % (self.x, self.y)
+def __repr__(self):
+    return 'Pair(%r, %r)' % (self.x, self.y)
 
 ```
