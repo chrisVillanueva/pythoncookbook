@@ -20,10 +20,13 @@ arguments, use a \* argument. For example:
 
 ```
 
+# definition
+
 def avg(first, *rest):
     return (first + sum(rest)) / (1 + len(rest))
 
-# Sample use
+
+# application
 
 $ avg(1, 2)
 $ avg(1, 2, 3, 4)
@@ -39,7 +42,10 @@ that starts with \*\*. For example:
 
 ```
 
+#definition
+
 import html
+
 def make_element(name, value, **attrs):
     keyvals = [' %s="%s"' % item for item in attrs.items()]
     attr_str = ''.join(keyvals)
@@ -49,13 +55,13 @@ def make_element(name, value, **attrs):
                   value=html.escape(value))
     return element
 
-# Example
-# Creates '<item size="large" quantity="6">Albatross</item>'
 
+# application
+
+# Creates '<item size="large" quantity="6">Albatross</item>'
 $ make_element('item', 'Albatross', size='large', quantity=6)
 
 # Creates '<p>&lt;spam&gt;</p>'
-
 $ make_element('p', '<spam>')
 
 
@@ -69,6 +75,8 @@ of positional and keyword-only arguments,
 use \* and \*\* together. For example:
 
 ```
+
+# definition
 
 def anyargs(*args, **kwargs):
     print(args)      # A tuple
@@ -90,6 +98,7 @@ A subtle aspect of function definitions is that arguments can still
 appear after a _ argument.
 
 ```
+# definition
 
 def a(x, *args, y):
     pass
