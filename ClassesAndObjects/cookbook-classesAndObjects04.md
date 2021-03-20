@@ -28,14 +28,18 @@ checking framework:
 
 ```
 
+# definition
+
+
 # Base class. Uses a descriptor to set a value
 class Descriptor(object):
     def __init__(self, name=None, **opts):
         self.name = name
         for key, value in opts.items():
             setattr(self, key, value)
-    def __set__(self, instance, value):
-        instance.__dict__[self.name] = value
+        def __set__(self, instance, value):
+            instance.__dict__[self.name] = value
+
 
 # Descriptor for enforcing types
 class Typed(Descriptor):
@@ -44,6 +48,7 @@ class Typed(Descriptor):
         if not isinstance(value, self.expected_type):
             raise TypeError('expected ' + str(self.expected_type))
         super().__set__(instance, value)
+
 
 # Descriptor for enforcing values
 class Unsigned(Descriptor):
@@ -57,6 +62,7 @@ class MaxSized(Descriptor):
         if 'size' not in opts:
             raise TypeError('missing size option')
         super().__init__(name, **opts)
+
     def __set__(self, instance, value):
         if len(value) >= self.size:
             raise ValueError('size must be < ' + str(self.size))
@@ -69,6 +75,8 @@ you construct a data model or type system. Continuing, here is
 some code that implements some different kinds of data:
 
 ```
+
+# application
 
 class Integer(Typed):
     expected_type = int
@@ -88,12 +96,14 @@ class String(Typed):
 class SizedString(String, MaxSized):
     pass
 
+
 ```
 
 Using these type objects, it is now possible to define a
 class such as this:
 
 ```
+# defintion
 
 class Stock(object):
     # Specify constraints
@@ -111,6 +121,7 @@ With the constraints in place, you’ll find that assigning of
 attributes is now validated. For example:
 
 ```
+# application
 
 $ s = Stock('ACME', 50, 91.1)
 $ s.name
@@ -126,6 +137,7 @@ the specification of constraints in classes. One approach
 is to use a class decorator, like this:
 
 ```
+# defintion
 
 # Class decorator to apply constraints
 def check_attributes(**kwargs):
@@ -139,7 +151,8 @@ def check_attributes(**kwargs):
         return cls
     return decorate
 
-# Example
+# application
+
 @check_attributes(name=SizedString(size=8),
                   shares=UnsignedInteger,
                   price=UnsignedFloat)
@@ -155,6 +168,7 @@ Another approach to simplify the specification of constraints
 is to use a metaclass. For example:
 
 ```
+# defintion
 
 # A metaclass that applies checking
 class checkedmeta(type):
@@ -165,7 +179,8 @@ class checkedmeta(type):
                 value.name = key
         return type.__new__(cls, clsname, bases, methods)
 
-# Example
+# application
+
 class Stock(metaclass=checkedmeta):
     name   = SizedString(size=8)
     shares = UnsignedInteger()
@@ -190,13 +205,13 @@ recipes. However, there are a number of subtle
 points worth noting.
 
 First, in the Descriptor base class, you will notice
-that there is a **set**() method, but no corresponding
-**get**(). If a descriptor will do nothing more than
+that there is a \_\_set\_\_() method, but no corresponding
+\_\_get\_\_(). If a descriptor will do nothing more than
 extract an identically named value from the underlying
-instance dictionary, defining **get**() is unnecessary.
-In fact, defining _get_() will just make it run slower.
+instance dictionary, defining \_\_get\_\_() is unnecessary.
+In fact, defining \_\_get\_\_() will just make it run slower.
 Thus, this recipe only focuses on the implementation
-of **set**().
+of \_\_set\_\_().
 
 The overall design of the various descriptor classes
 is based on mixin classes. For example, the Unsigned
@@ -205,7 +220,7 @@ other descriptor classes derived from Typed. To handle
 a specific kind of data type, multiple inheritance is
 used to combine the desired functionality.
 
-You will also notice that all **init**() methods of
+You will also notice that all \_\_init\_\_() methods of
 the various descriptors have been programmed to have
 an identical signature involving keyword arguments
 \*\*opts. The class for MaxSized looks for its required
@@ -268,52 +283,61 @@ formulation of this recipe that uses class decorators:
 # Base class. Uses a descriptor to set a value
 
 class Descriptor(object):
-  def **init**(self, name=None, \*\*opts):
-    self.name = name
-    for key, value in opts.items():
-    setattr(self, key, value)
-    def **set**(self, instance, value):
-    instance.**dict**[self.name] = value
+    def __init__(self, name=None, **opts):
+        self.name = name
+        for key, value in opts.items():
+            setattr(self, key, value)
+
+    def __set__(self, instance, value):
+        instance.**dict**[self.name] = value
 
 # Decorator for applying type checking
 
 def Typed(expected_type, cls=None):
     if cls is None:
         return lambda cls: Typed(expected_type, cls)
-    super_set = cls.**set**
-    def **set**(self, instance, value):
-    if not isinstance(value, expected_type):
-        raise TypeError('expected ' + str(expected_type))
-    super_set(self, instance, value)
-        cls.**set** = **set**
+
+    super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if not isinstance(value, expected_type):
+            raise TypeError('expected ' + str(expected_type))
+        super_set(self, instance, value)
+        cls.__set__ = __set__
+
     return cls
 
 # Decorator for unsigned values
 
 def Unsigned(cls):
-    super_set = cls.**set**
-    def **set**(self, instance, value):
-    if value < 0:
-        raise ValueError('Expected >= 0')
-    super_set(self, instance, value)
-    cls.**set** = **set**
+    super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if value < 0:
+            raise ValueError('Expected >= 0')
+        super_set(self, instance, value)
+        cls.__set__ = __set__
+
     return cls
 
 # Decorator for allowing sized values
 
 def MaxSized(cls):
-    super_init = cls.**init**
-    def **init**(self, name=None, **opts):
-    if 'size' not in opts:
-        raise TypeError('missing size option')
-    super_init(self, name, **opts)
-    cls.**init** = **init**
-    super_set = cls.**set**
-    def **set**(self, instance, value):
-    if len(value) >= self.size:
-        raise ValueError('size must be < ' + str(self.size))
-    super_set(self, instance, value)
-    cls.**set** = **set**
+    super_init = cls.__init__
+
+    def __init__(self, name=None, **opts):
+        if 'size' not in opts:
+            raise TypeError('missing size option')
+        super_init(self, name, **opts)
+        cls.__init__ = __init__
+        super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if len(value) >= self.size:
+            raise ValueError('size must be < ' + str(self.size))
+        super_set(self, instance, value)
+        cls.__set__ = __set__
+
     return cls
 
 # Specialized descriptors
