@@ -18,15 +18,15 @@ write a lot of special methods.
 Python classes can support comparison by implementing
 a special method for each comparison operator.
 For example, to support the >= operator, you define
-a **ge**() method in the classes. Although defining
+a \_\_ge\_\_() method in the classes. Although defining
 a single method is usually no problem, it quickly
 gets tedious to create implementations of every
 possible comparison operator.
 
 The functools.total_ordering decorator can be used to
 simplify this process. To use it, you decorate a
-class with it, and define **eq**() and one other
-comparison method (**lt**, **le**, **gt**, or **ge**).
+class with it, and define \_\_eq\_\_() and one other
+comparison method (\_\_lt\_\_, \_\_le\_\_, \_\_gt\_\_, or \_\_ge\_\_).
 The decorator then fills in the other comparison
 methods for you.
 
@@ -35,42 +35,51 @@ rooms to them, and then perform comparisons based
 on the size of the houses:
 
 ```
+# defintion
 
 from functools import total_ordering
+
 class Room(object):
-    def **init**(self, name, length, width):
-    self.name = name
-    self.length = length
-    self.width = width
-    self.square_feet = self.length * self.width
+    def __init__(self, name, length, width):
+        self.name = name
+        self.length = length
+        self.width = width
+        self.square_feet = self.length * self.width
 
 @total_ordering
 class House(object):
-    def **init**(self, name, style):
-    self.name = name
-    self.style = style
-    self.rooms = list()
-@property
-def living_space_footage(self):
-    return sum(r.square_feet for r in self.rooms)
-def add_room(self, room):
-    self.rooms.append(room)
-def **str**(self):
-    return '{}: {} square foot {}'.format(self.name, self.living_space_footage, self.style)
-def **eq**(self, other):
-    return self.living_space_footage == other.living_space_footage
-def **lt**(self, other):
-    return self.living_space_footage < other.living_space_footage
+    def __init__(self, name, style):
+        self.name = name
+        self.style = style
+        self.rooms = list()
+
+    @property
+    def living_space_footage(self):
+        return sum(r.square_feet for r in self.rooms)
+
+    def add_room(self, room):
+        self.rooms.append(room)
+
+    def __str__(self):
+        return '{}: {} square foot {}'.format(self.name, self.living_space_footage, self.style)
+
+    def __eq__(self, other):
+        return self.living_space_footage == other.living_space_footage
+
+    def __lt__(self, other):
+        return self.living_space_footage < other.living_space_footage
+
 
 ```
 
 Here, the House class has been decorated with @total_ordering.
-Definitions of **eq**() and **lt**() are provided to compare
+Definitions of \_\_eq\_\_() and \_\_lt\_\_() are provided to compare
 houses based on the total square footage of their rooms.
 This minimum definition is all that is required to make all
 of the other comparison operations work. For example:
 
 ```
+# application
 
 # Build a few houses, and add rooms to them
 
@@ -92,6 +101,7 @@ h3.add_room(Room('Office', 12, 16))
 h3.add_room(Room('Kitchen', 15, 17))
 houses = [h1, h2, h3]
 
+
 # prints True
 print('Is h1 bigger than h2?', h1 > h2)
 
@@ -108,6 +118,7 @@ print('Which one is biggest?', max(houses))
 print('Which is smallest?', min(houses))
 
 
+
 ```
 
 ## Discussion
@@ -119,7 +130,7 @@ of the basic comparison operators, then total_ordering
 probably doesn’t seem all that magical: it literally
 defines a mapping from each of the comparison-supporting
 methods to all of the other ones that would be required.
-So, if you defined **lt**() in your class as in the
+So, if you defined \_\_lt\_\_() in your class as in the
 solution, it is used to build all of the other comparison
 operators. It’s really just filling in the class with
 methods like this:
@@ -127,9 +138,9 @@ methods like this:
 ```
 
 class House(object):
-    def **eq**(self, other):
+    def __eq__(self, other):
     ...
-    def **lt**(self, other):
+    def __lt__(self, other):
     ...
 
     # Methods created by @total_ordering
