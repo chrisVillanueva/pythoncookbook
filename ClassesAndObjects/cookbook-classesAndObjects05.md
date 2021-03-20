@@ -17,24 +17,28 @@ execute the method.
 For simple cases, you might use getattr(), like this:
 
 ```
+#application
 
 import math
 
 class Point(object):
-    def **init**(self, x, y):
-    self.x = x
-    self.y = y
-    def **repr**(self):
-    return 'Point({!r:},{!r:})'.format(self.x, self.y)
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-def distance(self, x, y):
-    return math.hypot(self.x - x, self.y - y)
+    def __repr__(self):
+        return 'Point({!r:},{!r:})'.format(self.x, self.y)
 
+    def distance(self, x, y):
+        return math.hypot(self.x - x, self.y - y)
+
+# application
 
 p = Point(2, 3)
 
 # Calls p.distance(0, 0)
 d = getattr(p, 'distance')(0, 0)
+
 
 ```
 
@@ -42,9 +46,11 @@ An alternative approach is to use operator.methodcaller().
 For example:
 
 ```
+# application
 
 import operator
 operator.methodcaller('distance', 0, 0)(p)
+
 
 ```
 
@@ -54,6 +60,7 @@ and over again. For instance, if you need to sort an
 entire list of points:
 
 ```
+# application
 
 points = [
     Point(1, 2),
@@ -66,6 +73,7 @@ points = [
 
 # Sort by distance from origin (0, 0)
 points.sort(key=operator.methodcaller('distance', 0, 0))
+
 
 ```
 
@@ -86,6 +94,8 @@ All that you need to do is provide the appropriate self argument.
 For example:
 
 ```
+# application
+
 p = Point(3, 4)
 d = operator.methodcaller('distance', 0, 0)
 d(p)
