@@ -26,7 +26,7 @@ min1 = minimum(1, 5, 2, -5, 10)
 # => -5
 min2 = minimum(1, 5, 2, -5, 10, clip=0)
 # => 0
-print('minimum(1, 5, 2, -5, 10) => ' + str(min1))
-print('minimum(1, 5, 2, -5, 10, clip=0) => ' + str(min2))
+print(f'minimum(1, 5, 2, -5, 10) => {min1}')
+print(f'minimum(1, 5, 2, -5, 10, clip=0) => {min2}')
 
 # help(minimum)

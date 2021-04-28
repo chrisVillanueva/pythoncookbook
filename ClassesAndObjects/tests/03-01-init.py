@@ -12,7 +12,9 @@
 
 # definition
 
-class Structure(object):  # Class variable that specifies expected fields
+# Class variable that specifies
+# expected fields
+class Structure(object):
     _fields = []
 
     def __init__(self, *args):
@@ -45,6 +47,6 @@ p = Point(2, 3)
 c = Circle(4.5)
 # s2 = Stock('ACME', 50)  # Results in an error
 
-print(s)
-print(p)
-print(c)
+print(f' Structure[Stock]  =>  {s}')
+print(f' Structure[Point]  =>  {p}')
+print(f' Structure[Circle] =>  {c}')

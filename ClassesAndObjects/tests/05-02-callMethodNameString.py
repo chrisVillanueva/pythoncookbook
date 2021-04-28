@@ -28,8 +28,8 @@ class Point(object):
 # application
 p = Point(2, 3)
 
-print(p)
+print(f"Structure[Point] => {p}")
 
 d = operator.methodcaller('distance', 0, 0)(p)
 
-print(d)
+print(f"operator.methodcaller('distance', 0, 0)(p) => {d}")

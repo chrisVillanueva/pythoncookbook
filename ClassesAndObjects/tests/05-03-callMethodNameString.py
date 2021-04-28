@@ -38,12 +38,9 @@ points = [
     Point(3, 2)
 ]
 
-print('initial points => ')
-print(points)
+print(f'initial points => {points}')
 
 points.sort(key=operator.methodcaller('distance', 0, 0))
 
-
-print('sorted points => ')
-print(points)
+print(f"points.sort(key=operator.methodcaller('distance', 0, 0)) => {points}")
 # TODO: understand this sort.  Not sure about the order.

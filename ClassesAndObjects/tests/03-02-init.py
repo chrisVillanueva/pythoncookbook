@@ -45,6 +45,6 @@ s2 = Stock('ACME', 50, price=91.1)
 s3 = Stock('ACME', shares=50, price=91.1)
 
 
-print(s1)
-print(s2)
-print(s3)
+print(f' Structure[Stock] s1 =>  {s1}')
+print(f' Structure[Stock] s2 =>  {s2}')
+print(f' Structure[Stock] s3 =>  {s3}')

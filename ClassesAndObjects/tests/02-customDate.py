@@ -33,8 +33,9 @@ class Date(object):
 
 # custom date
 d = Date(2012, 12, 21)
-print('Default date => ' + format(d))
-print('Date with mdy arguments => ' + format(d, 'mdy'))
+# print('Default date => ' + format(d))
+print(f'Default date => {d}')
+print(f"Date with mdy arguments => {format(d, 'mdy')}")
 
 # covers all 3 date formats
 print('The date is {:ymd} - defined with :ymd arguments'.format(d))

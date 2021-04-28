@@ -91,8 +91,9 @@ s = Stock('ACME', 50, 91.1)
 s.name
 s.shares = 75
 
-print(s.name)
-print(s.shares)
+print(f"Structure[Stock] => {s}")
+print(f"s.name   => {s.name}")
+print(f"s.shares => {s.shares}")
 
 
 # s.shares = -10  # Results in an error

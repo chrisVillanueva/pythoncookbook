@@ -30,9 +30,9 @@ class Point(object):
 
 p = Point(2, 3)
 
-print(p)
+print(f"Structure[Point] => {p}")
 
 # Calls p.distance(0, 0)
 d = getattr(p, 'distance')(0, 0)
 
-print(d)
+print(f"getattr(p, 'distance')(0, 0) => {d}")

@@ -74,16 +74,16 @@ houses = [h1, h2, h3]
 # now compare instances
 
 # prints True
-print('Is h1 bigger than h2?', h1 > h2)
+print(f'Is h1 bigger than h2? {h1 > h2}')
 
 # prints True
-print('Is h2 smaller than h3?', h2 < h3)
+print(f'Is h2 smaller than h3? {h2 < h3}')
 
 # Prints False
-print('Is h2 greater than or equal to h1?', h2 >= h1)
+print(f'Is h2 greater than or equal to h1? {h2 >= h1}')
 
 # Prints 'h3: 1101-square-foot Split'
-print('Which one is biggest?', max(houses))
+print(f'Which one is biggest? {max(houses)}')
 
 # Prints 'h2: 846-square-foot Ranch'
-print('Which is smallest?', min(houses))
+print(f'Which is smallest? {min(houses)}')

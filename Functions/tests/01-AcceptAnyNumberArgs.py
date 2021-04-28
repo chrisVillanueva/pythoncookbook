@@ -21,8 +21,8 @@ avg2 = avg(1, 2, 3, 4)
 avg3 = avg(1, 2, 3, 4, 5, 6, 7, 8)
 
 # standard behavior
-print('avg(1, 2) => ' + str(avg1))
+print(f'avg(1, 2) => {avg1}')
 
-print('avg(1, 2, 3, 4) => ' + str(avg2))
+print(f'avg(1, 2, 3, 4) => {avg2}')
 
-print('avg(1, 2, 3, 4, 5, 6, 7, 8) => ' + str(avg3))
+print(f'avg(1, 2, 3, 4, 5, 6, 7, 8) => {avg3}')
